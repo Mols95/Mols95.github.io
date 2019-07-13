@@ -65,163 +65,25 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-pandas-1.Series" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Numpy-0" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/13/pandas-1.Series/" class="article-date">
-  <time datetime="2019-07-13T02:33:14.285Z" itemprop="datePublished">2019-07-13</time>
+    <a href="/2019/07/13/Numpy-0/" class="article-date">
+  <time datetime="2019-07-13T02:43:22.000Z" itemprop="datePublished">2019-07-13</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series,DataFrame</span><br></pre></td></tr></table></figure>
-
-<h3 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h3><ul>
-<li><p>Series是一种类似于一维数组的对象，由下面两个部分组成：</p>
-<ul>
-<li>values：一组数据（ndarray类型）</li>
-<li>index：相关的数据索引标签</li>
-</ul>
-</li>
-<li><p>series对象如果没有显示指定index，则把数组的索引设置成index</p>
-<ul>
-<li><p>使用index参数显示设置索引</p>
-<p><code>s2 = Series(list1, index=[&#39;name&#39;,&#39;python&#39;,&#39;c&#39;,&#39;java&#39;,&#39;php&#39;,&#39;address&#39;])</code></p>
-</li>
-</ul>
-</li>
-<li><p>series接受的data必须是一维数组</p>
-</li>
-</ul>
-<h4 id="Series创建三种方法"><a href="#Series创建三种方法" class="headerlink" title="Series创建三种方法"></a>Series创建三种方法</h4><ul>
-<li><p>使用列表构建，副本对象，副本对象相互独立</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">values = [<span class="number">150</span>,<span class="number">150</span>,<span class="number">150</span>,<span class="number">300</span>]</span><br><span class="line">s7 = Series(values, index=(<span class="string">'语文'</span>,<span class="string">'数学'</span>,<span class="string">'英语'</span>,<span class="string">'理综'</span>))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用数组构建，使用numpy构建的是引用对象，引用对象会相互影响</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">values = [<span class="number">150</span>,<span class="number">150</span>,<span class="number">150</span>,<span class="number">300</span>]</span><br><span class="line">s8 = np.array(values)</span><br><span class="line">s9 = Series(s8, index=(<span class="string">'语文'</span>,<span class="string">'数学'</span>,<span class="string">'英语'</span>,<span class="string">'理综'</span>))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用字典构建</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dic = &#123;</span><br><span class="line">    <span class="string">'语文'</span>:<span class="number">150</span>,</span><br><span class="line">    <span class="string">'数学'</span>:<span class="number">150</span>,</span><br><span class="line">    <span class="string">'英语'</span>:<span class="number">150</span>,</span><br><span class="line">    <span class="string">'理综'</span>:<span class="number">300</span></span><br><span class="line">&#125;</span><br><span class="line">s6 = Series(data=dic)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="Series的索引和切片"><a href="#Series的索引和切片" class="headerlink" title="Series的索引和切片"></a>Series的索引和切片</h4><ul>
-<li><p>索引</p>
-<ul>
-<li><p>可以使用中括号取单个索引（此时返回的是元素类型），或者中括号里一个列表取多个索引<code>s1[[&quot;语文&quot;,&quot;数学&quot;]]</code>（此时返回的仍然是一个Series类型）。分为显示索引和隐式索引</p>
-</li>
-<li><p>显示索引</p>
-<ul>
-<li><p>使用index中的元素作为索引值</p>
-</li>
-<li><p>使用.loc[] (推荐)</p>
-<p><code>s1.loc[&quot;语文&quot;]</code></p>
-</li>
-</ul>
-</li>
-<li><p>隐式索引</p>
-<ul>
-<li><p>使用整数作为索引值</p>
-</li>
-<li><p>使用.iloc[] (推荐)</p>
-<p><code>s1.iloc[[0,2]]</code>  </p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>切片</p>
-<p><code>s2 = Series(data=np.random.randint(0,100,size=10), index=list(&quot;ABCDEFGHIJ&quot;))</code></p>
-<ul>
-<li><p>使用显式索引切片 左闭右闭区间</p>
-<p><code>s2.loc[&quot;B&quot;:&quot;J&quot;]</code></p>
-</li>
-<li><p>使用隐式索引切片 左闭右开区间</p>
-<p><code>s2.iloc[0:3]</code></p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Series的基本概念"><a href="#Series的基本概念" class="headerlink" title="Series的基本概念"></a>Series的基本概念</h4><ul>
-<li><p>可以把Series看成一个定长的有序字典</p>
-</li>
-<li><p>可以通过shape，size，index，values等得到series的属性</p>
-</li>
-<li><p>可以使用head()，tail()分别查看前n个和后n个值 </p>
-</li>
-<li><p>当索引没有对应的值时，可能出现缺失数据显示NaN（not a number）的情况</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;s1 = Series(data=np.random.randint(<span class="number">0</span>,<span class="number">10</span>,size=<span class="number">5</span>), index=list(<span class="string">"ABCDE"</span>))</span><br><span class="line">&gt;s2 = Series(data=np.random.randint(<span class="number">0</span>,<span class="number">10</span>,size=<span class="number">5</span>), index=list(<span class="string">"ABCDF"</span>))</span><br><span class="line">&gt;s3 = s1 + s2</span><br><span class="line">&gt;s3</span><br><span class="line"></span><br><span class="line">A     <span class="number">8.0</span></span><br><span class="line">B    <span class="number">12.0</span></span><br><span class="line">C    <span class="number">11.0</span></span><br><span class="line">D    <span class="number">14.0</span></span><br><span class="line">E     NaN</span><br><span class="line">F     NaN</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;s3.loc[<span class="string">"E"</span>]</span><br><span class="line"></span><br><span class="line">nan</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>可以使用pd.isnull()，pd.notnull()，或自带isnull()，notnull()函数检测缺失数据</p>
-<ul>
-<li><p>可以使用notnull函数过滤空值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;s3.loc[s3.notnull()]</span><br><span class="line"></span><br><span class="line">A     <span class="number">8.0</span></span><br><span class="line">B    <span class="number">12.0</span></span><br><span class="line">C    <span class="number">11.0</span></span><br><span class="line">D    <span class="number">14.0</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>使用Bool_list访问数组对象</p>
-</li>
-<li><p>Series对象本身及其实例都有一个name属性</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;s3.name = <span class="string">"Python"</span></span><br><span class="line">&gt;s3</span><br><span class="line"></span><br><span class="line">A     <span class="number">8.0</span></span><br><span class="line">B    <span class="number">12.0</span></span><br><span class="line">C    <span class="number">11.0</span></span><br><span class="line">D    <span class="number">14.0</span></span><br><span class="line">E     NaN</span><br><span class="line">F     NaN</span><br><span class="line">Name: Python, dtype: float64</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="Series的运算"><a href="#Series的运算" class="headerlink" title="Series的运算"></a>Series的运算</h4><ul>
-<li><p>Series运算与ndarray运算规则的区别</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.numpy：广播机制，可处理高维数据运算</span><br><span class="line">2.Series：numpy运算都支持，索引对齐原则，只能处理一维数据的运算</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一条原则，索引对齐；跟数字运算，不会出现索引对齐的问题</p>
-</li>
-<li><p>适用于numpy的数组运算也适用于Series</p>
-</li>
-<li><p>Series之间的运算</p>
-<ul>
-<li>在运算中自动对齐不同索引的数据</li>
-<li>如果索引不对应，则补NaN</li>
-</ul>
-</li>
-<li><p>注意：要想保留所有的index，则需要使用</p>
-<ul>
-<li><p>add() 加</p>
-</li>
-<li><p>sub() 减</p>
-</li>
-<li><p>mul() 乘</p>
-</li>
-<li><p>div() 除</p>
-<p><code>指定fill_value参数，当需要使用空值填充时，把空值替换成fill_value的值</code></p>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/13/pandas-1.Series/" data-id="cjy0x7cxs0002akuf84sgdr3i" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
+      <header class="article-header">
+        
   
-</article>
-
-
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/13/Numpy-0/">&#39;Numpy&#39;</a>
+    </h1>
   
-    <article id="post-numpy" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/13/numpy/" class="article-date">
-  <time datetime="2019-07-13T02:33:03.399Z" itemprop="datePublished">2019-07-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
+
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -229,8 +91,6 @@
 <li><p>所有元素为1的数组</p>
 <p><code>np.ones(shape, dtype=None, order=&#39;C&#39;)</code></p>
 </li>
-</ul>
-<ul>
 <li><p>所有元素为0的数组</p>
 <p><code>np.zeros(shape, dtype=float, order=&#39;C&#39;)</code> </p>
 </li>
@@ -241,7 +101,7 @@
 <p><code>np.eye(N, M=None, k=0, dtype=float)</code></p>
 </li>
 <li><p>等差数列数组</p>
-<p> <code>np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None)</code></p>
+<p><code>np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None)</code></p>
 </li>
 <li><p>等距数组</p>
 <p><code>np.arange([start, ]stop, [step, ]dtype=None)</code></p>
@@ -437,7 +297,155 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/13/numpy/" data-id="cjy0x7cxk0001akufinj04mfq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/13/Numpy-0/" data-id="cjy0xjlu70001n8ufbd2i73bq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-pandas-1.Series" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/13/pandas-1.Series/" class="article-date">
+  <time datetime="2019-07-13T02:33:14.285Z" itemprop="datePublished">2019-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series,DataFrame</span><br></pre></td></tr></table></figure>
+
+<h3 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h3><ul>
+<li><p>Series是一种类似于一维数组的对象，由下面两个部分组成：</p>
+<ul>
+<li>values：一组数据（ndarray类型）</li>
+<li>index：相关的数据索引标签</li>
+</ul>
+</li>
+<li><p>series对象如果没有显示指定index，则把数组的索引设置成index</p>
+<ul>
+<li><p>使用index参数显示设置索引</p>
+<p><code>s2 = Series(list1, index=[&#39;name&#39;,&#39;python&#39;,&#39;c&#39;,&#39;java&#39;,&#39;php&#39;,&#39;address&#39;])</code></p>
+</li>
+</ul>
+</li>
+<li><p>series接受的data必须是一维数组</p>
+</li>
+</ul>
+<h4 id="Series创建三种方法"><a href="#Series创建三种方法" class="headerlink" title="Series创建三种方法"></a>Series创建三种方法</h4><ul>
+<li><p>使用列表构建，副本对象，副本对象相互独立</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">values = [<span class="number">150</span>,<span class="number">150</span>,<span class="number">150</span>,<span class="number">300</span>]</span><br><span class="line">s7 = Series(values, index=(<span class="string">'语文'</span>,<span class="string">'数学'</span>,<span class="string">'英语'</span>,<span class="string">'理综'</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用数组构建，使用numpy构建的是引用对象，引用对象会相互影响</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">values = [<span class="number">150</span>,<span class="number">150</span>,<span class="number">150</span>,<span class="number">300</span>]</span><br><span class="line">s8 = np.array(values)</span><br><span class="line">s9 = Series(s8, index=(<span class="string">'语文'</span>,<span class="string">'数学'</span>,<span class="string">'英语'</span>,<span class="string">'理综'</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用字典构建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dic = &#123;</span><br><span class="line">    <span class="string">'语文'</span>:<span class="number">150</span>,</span><br><span class="line">    <span class="string">'数学'</span>:<span class="number">150</span>,</span><br><span class="line">    <span class="string">'英语'</span>:<span class="number">150</span>,</span><br><span class="line">    <span class="string">'理综'</span>:<span class="number">300</span></span><br><span class="line">&#125;</span><br><span class="line">s6 = Series(data=dic)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="Series的索引和切片"><a href="#Series的索引和切片" class="headerlink" title="Series的索引和切片"></a>Series的索引和切片</h4><ul>
+<li><p>索引</p>
+<ul>
+<li><p>可以使用中括号取单个索引（此时返回的是元素类型），或者中括号里一个列表取多个索引<code>s1[[&quot;语文&quot;,&quot;数学&quot;]]</code>（此时返回的仍然是一个Series类型）。分为显示索引和隐式索引</p>
+</li>
+<li><p>显示索引</p>
+<ul>
+<li><p>使用index中的元素作为索引值</p>
+</li>
+<li><p>使用.loc[] (推荐)</p>
+<p><code>s1.loc[&quot;语文&quot;]</code></p>
+</li>
+</ul>
+</li>
+<li><p>隐式索引</p>
+<ul>
+<li><p>使用整数作为索引值</p>
+</li>
+<li><p>使用.iloc[] (推荐)</p>
+<p><code>s1.iloc[[0,2]]</code>  </p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>切片</p>
+<p><code>s2 = Series(data=np.random.randint(0,100,size=10), index=list(&quot;ABCDEFGHIJ&quot;))</code></p>
+<ul>
+<li><p>使用显式索引切片 左闭右闭区间</p>
+<p><code>s2.loc[&quot;B&quot;:&quot;J&quot;]</code></p>
+</li>
+<li><p>使用隐式索引切片 左闭右开区间</p>
+<p><code>s2.iloc[0:3]</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Series的基本概念"><a href="#Series的基本概念" class="headerlink" title="Series的基本概念"></a>Series的基本概念</h4><ul>
+<li><p>可以把Series看成一个定长的有序字典</p>
+</li>
+<li><p>可以通过shape，size，index，values等得到series的属性</p>
+</li>
+<li><p>可以使用head()，tail()分别查看前n个和后n个值 </p>
+</li>
+<li><p>当索引没有对应的值时，可能出现缺失数据显示NaN（not a number）的情况</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;s1 = Series(data=np.random.randint(<span class="number">0</span>,<span class="number">10</span>,size=<span class="number">5</span>), index=list(<span class="string">"ABCDE"</span>))</span><br><span class="line">&gt;s2 = Series(data=np.random.randint(<span class="number">0</span>,<span class="number">10</span>,size=<span class="number">5</span>), index=list(<span class="string">"ABCDF"</span>))</span><br><span class="line">&gt;s3 = s1 + s2</span><br><span class="line">&gt;s3</span><br><span class="line"></span><br><span class="line">A     <span class="number">8.0</span></span><br><span class="line">B    <span class="number">12.0</span></span><br><span class="line">C    <span class="number">11.0</span></span><br><span class="line">D    <span class="number">14.0</span></span><br><span class="line">E     NaN</span><br><span class="line">F     NaN</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;s3.loc[<span class="string">"E"</span>]</span><br><span class="line"></span><br><span class="line">nan</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以使用pd.isnull()，pd.notnull()，或自带isnull()，notnull()函数检测缺失数据</p>
+<ul>
+<li><p>可以使用notnull函数过滤空值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;s3.loc[s3.notnull()]</span><br><span class="line"></span><br><span class="line">A     <span class="number">8.0</span></span><br><span class="line">B    <span class="number">12.0</span></span><br><span class="line">C    <span class="number">11.0</span></span><br><span class="line">D    <span class="number">14.0</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>使用Bool_list访问数组对象</p>
+</li>
+<li><p>Series对象本身及其实例都有一个name属性</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;s3.name = <span class="string">"Python"</span></span><br><span class="line">&gt;s3</span><br><span class="line"></span><br><span class="line">A     <span class="number">8.0</span></span><br><span class="line">B    <span class="number">12.0</span></span><br><span class="line">C    <span class="number">11.0</span></span><br><span class="line">D    <span class="number">14.0</span></span><br><span class="line">E     NaN</span><br><span class="line">F     NaN</span><br><span class="line">Name: Python, dtype: float64</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="Series的运算"><a href="#Series的运算" class="headerlink" title="Series的运算"></a>Series的运算</h4><ul>
+<li><p>Series运算与ndarray运算规则的区别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.numpy：广播机制，可处理高维数据运算</span><br><span class="line">2.Series：numpy运算都支持，索引对齐原则，只能处理一维数据的运算</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一条原则，索引对齐；跟数字运算，不会出现索引对齐的问题</p>
+</li>
+<li><p>适用于numpy的数组运算也适用于Series</p>
+</li>
+<li><p>Series之间的运算</p>
+<ul>
+<li>在运算中自动对齐不同索引的数据</li>
+<li>如果索引不对应，则补NaN</li>
+</ul>
+</li>
+<li><p>注意：要想保留所有的index，则需要使用</p>
+<ul>
+<li><p>add() 加</p>
+</li>
+<li><p>sub() 减</p>
+</li>
+<li><p>mul() 乘</p>
+</li>
+<li><p>div() 除</p>
+<p><code>指定fill_value参数，当需要使用空值填充时，把空值替换成fill_value的值</code></p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/13/pandas-1.Series/" data-id="cjy0xjlug0002n8ufdxqenui9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -483,7 +491,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/03/My-First-Blog/" data-id="cjy0x7cx90000akufvvf1ubi1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/03/My-First-Blog/" data-id="cjy0xjltf0000n8ufst9ykh17" class="article-share-link">Share</a>
       
       
     </footer>
@@ -524,11 +532,11 @@
       <ul>
         
           <li>
-            <a href="/2019/07/13/pandas-1.Series/">(no title)</a>
+            <a href="/2019/07/13/Numpy-0/">&#39;Numpy&#39;</a>
           </li>
         
           <li>
-            <a href="/2019/07/13/numpy/">(no title)</a>
+            <a href="/2019/07/13/pandas-1.Series/">(no title)</a>
           </li>
         
           <li>
